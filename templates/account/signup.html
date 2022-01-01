@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-5 mb-5 pt-5 pb-5 ps-3 px-3"
+style=" width: 30%;border: groove;" >
+<h5 style="text-align: center;">Signup</h5>
+<form method="post" >
+    {% csrf_token%}
+    {{form|crispy}}
+    <button type="submit" class="btn btn-primary" style="margin-left: 180px; margin-top: 10px;">Login</button>
+</form>
+Already have an account? <a href="{url 'account_login'}">Signup</a>
+</div>
+{% endblock content %}

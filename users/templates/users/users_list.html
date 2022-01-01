@@ -1,0 +1,38 @@
+{% extends 'base.html'%}
+
+{% block content %}
+{% if page == 'users'%}
+{{object_list}}
+{%else%}
+<h3 class="mx-4 mt-3">Items</h3>
+<a class="mx-4" href= "{% url 'activity:add_item' slug %}">Add Item</a>
+<hr/>
+<div class="container  mb-5 pt-2 pb-5 ps-3 px-3">
+    <div class="row">
+    {% for object in object_list %}
+    <div class="card col-3 me-3 mt-3" style="width: 13rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{object.name.title}}
+            {% if object.is_low%}
+                <span class="badge bg-danger">Low stock</span> 
+            {% endif %}
+            </h5>
+            <a href="{% url 'activity:update_item' slug object.slug%}" class="card-link" >Update</a>
+            <br>
+            <p >Quantity: {{object.quantity}}
+            <p>Price: {{object.price}}</p>
+            <p>Total: {{object.get_price}}</p>
+            <a href="{% url 'activity:view_item' slug object.slug%}" class="card-link" >View</a>
+            <a href="{% url 'activity:delete_item'  slug object.slug%}" class="card-link">Delete</a>
+            
+          </div>
+    </div>
+    {% endfor %}
+</div>
+</div>
+
+<br/>
+<br/>
+
+{% endif %}
+{% endblock content %}

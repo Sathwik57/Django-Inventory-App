@@ -1,0 +1,6 @@
+name,quantity,price,alerts,min_quantity,notes
+cookery,2,4,FALSE,,zvs
+Pencils,30,100,TRUE,3,zvs
+Handwash,10,4,FALSE,3,zvs
+Plates,2,4,FALSE,,zvs
+Papers,400,1,TRUE,100,

@@ -1,0 +1,27 @@
+{% extends 'base.html'%}
+
+{% block content %}
+{% if page == 'users'%}
+{{object_list}}
+{%else%}
+<div class="container mt-5 mb-5 pt-5 pb-5 ps-3 px-3">
+
+            <h5 class="card-title">{{object.name.title}} &nbsp;
+            {% if object.is_low%}
+                <span class="badge bg-danger">Low stock</span> 
+            {% endif %}
+        </h5>
+            <a href="{% url 'activity:update_item' slug object.slug%}" class="card-link" >Update</a>
+            <hr/>
+            <p>Folder : {{object.folder}} </p>
+            <p >Quantity: {{object.quantity}}
+            <p>Price: {{object.price}} &nbsp;| &nbsp; Total: {{object.get_price}}</p>
+            <p>notes: {{object.notes}}</p>
+            <p>Alerts: {{object.alerts}} &nbsp;| &nbsp;Min quantity: {{object.min_quantity}}</p>
+            <a href="{% url 'activity:update_item' slug object.slug%}" class="card-link" >Update</a>
+            <a href="{% url 'activity:delete_item'  slug object.slug%}" class="card-link">Delete</a>
+
+</div>
+
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,5 @@
+name,quantity,price,alerts,min_quantity,notes
+asfsascas,2,4,TRUE,,zvs
+asfasdf,s,-4,TRUE,3,zvs
+asdf,2,4,TRUE,3,zvs
+asfsaf,2,4,FALSE,,zvs

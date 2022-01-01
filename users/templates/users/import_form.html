@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+<div class="container mt-5 mb-5 pt-3 pb-3 ps-3 px-3" style=" width: 40%;border: groove;">
+    {% if page == 'import'%}
+    <h4 style="text-align: center;" class="pb-3">  Upload CSV File</h4>
+    <p class="text-dark">Please check out this file for reference
+        <a class="link text-muted" href="{%static 'images/sample_file.xlsx' %}" download="">Instructions</a></p>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token%}
+        {{form|crispy}}
+        <button type="submit" class="btn btn-outline-dark" style="margin-left: 220px; margin-top: 20px;">Upload</button>
+    </form>
+    <br>
+    <p  class="text-dark"> * Rows with wrong format will be skipped or altered</p>
+    {% else %}
+    <h4>{{count}} items imported</h4>
+    <hr />
+    <strong>Report:</strong>
+    <table>
+        <tr>
+            <th class="pe-2">Item Name</th>
+            <th class="pe-2">Status</th>
+            <th class="pe-2">Message</th>
+        </tr>
+        {% for item in items %}
+        <tr>
+            <td class="pe-2">{{item}}</td>
+            <td class="pe-2">Imported</td>
+            <td class="pe-2">Success</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
+{% endblock content %}

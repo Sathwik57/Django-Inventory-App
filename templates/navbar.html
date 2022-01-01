@@ -1,0 +1,71 @@
+{% load static%}
+<style>
+    @media (min-width: 992px) {
+        #intro {
+          margin-top: -58.59px;
+        }
+    }
+    .navbar .nav-link {
+        color: rgb(0, 0, 0) !important;
+    }
+    
+</style>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark d-none d-lg-block" style="z-index: 2000;">
+    <div class="container-fluid">
+        <!-- Navbar brand -->
+        <a class="navbar-brand nav-link"  href="{% url 'activity:home'%}">
+            <strong>Sort </strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
+            aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarExample01">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'activity:dashboard'%}" rel="nofollow">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'activity:folders'%}" >Inventory</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'activity:import'%}" >Import</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'activity:export'%}" >Export</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'activity:transactions'%}" >Transactions</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav d-flex flex-row">
+                <!-- Icons -->
+                <li class="nav-item me-3 me-lg-0">
+                    <a class="nav-link" href="#aboutu" rel="nofollow">Contact Us</a>
+                </li>
+                {% if not  request.user.is_authenticated %}
+                <li class="nav-item me-3 me-lg-0">
+                    <a class="nav-link" href="{% url 'activity:home'%}" rel="nofollow">Signup
+                    </a>
+                </li>
+                
+                <li class="nav-item me-3 me-lg-0">
+                    <a class="nav-link" href="{% url 'account_login'%}" >
+                        Login
+                    </a>
+                </li>
+                {% else %}
+                <li class="nav-item me-3 me-lg-0">
+                    <a class="nav-link" href="{% url 'account_logout'%}" >
+                        Logout
+                    </a>
+                </li>
+                {% endif %}
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Navbar -->

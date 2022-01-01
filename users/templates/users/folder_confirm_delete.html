@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-5 mb-5 pt-5 pb-5 ps-3 px-3">
+    <form method="post">
+        {% csrf_token%}
+    Delete folder: {{object}}?
+    <input type="submit" class="btn" value="Delete">
+</form>
+<a class=" btn btn-outline-dark" href="{% url 'activity:view-folder' object.slug%}"> Back </a>
+</div>
+{% endblock content %}

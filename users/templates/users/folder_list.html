@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load filtags %}
+
+{% block content %}
+<h3 class="mx-4 mt-3">Folders</h3>
+<hr/>
+<div class="container mt-5 mb-5 pt-5 pb-5 ps-3 px-3">
+    <div class="row">
+    {% for object in object_list %}
+    <div class="card col-3 me-3" style="width: 16rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{object.name}}</h5>
+            <br>
+            <p >Items: {{object.item_count}} |
+            Price: {{object.item_price}}</p>
+            {% if object.item_price > 0%}
+            <a href="{% url 'activity:items' object.slug%}" class="card-link" >Open</a>
+            {%endif %}
+            <a href="{% url 'activity:delete-folder' object.slug%}" class="card-link">Delete</a>
+          </div>
+    </div>
+    {% endfor %}
+</div>
+</div>
+
+<br/>
+<br/>
+
+{% endblock content %}
