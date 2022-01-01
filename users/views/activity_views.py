@@ -9,7 +9,10 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView
 from django.views.generic.list import ListView
 from django.db.models import F,Value,Count,Sum
-from django.contrib import messages  
+from django.contrib import messages
+from django.conf import settings  
+from django.views.decorators.cache import cache_page
+from django.core.cache import cache
 
 import csv
 
@@ -17,6 +20,7 @@ from users.forms import ImportForm, ItemForm
 from users.utils import validate_imported_data
 from ..models import DateToChar, Folder, Item, Transaction
 
+CACHE_TTL = getattr(settings, 'CACHE_TTL')
 
 def fetch_item(folder_slug, item_slug):
     try:
@@ -25,6 +29,11 @@ def fetch_item(folder_slug, item_slug):
         return item
     except:
         raise Http404("No Item found" )
+
+
+@cache_page(CACHE_TTL)
+def home(request):
+    return render(request ,'home.html')
 
 
 class AddFolder(LoginRequiredMixin, CreateView):
@@ -36,6 +45,7 @@ class AddFolder(LoginRequiredMixin, CreateView):
         temp.user = self.request.user
         form.save()
         return super().form_valid(form)
+
 
 
 class ListFolders(LoginRequiredMixin,ListView):
@@ -107,7 +117,14 @@ class ViewItem(LoginRequiredMixin,DetailView):
     def get_object(self, queryset=None):     
         folder_slug = self.kwargs.get('slug') 
         item_slug = self.kwargs.get('itemslug')
-        item =fetch_item(folder_slug, item_slug)
+        item = cache.get('item' , None)
+        print(item)
+        if not item:
+            item =fetch_item(folder_slug, item_slug)
+            cache.set('item' , item)
+            print("DB Call")
+        else:
+            print('Cache')
         self.initial_qty = item.quantity
         return item
 

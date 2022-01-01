@@ -9,11 +9,6 @@ from django.views.generic.list import ListView
 from ..forms import ProfileForm
 from ..models import  User
 
-
-def home(request):
-    return render(request ,'home.html')
-
-
 class UserList(LoginRequiredMixin, ListView):
     template_name = 'users/users_list.html'
     queryset = User.objects.all()

@@ -1,20 +1,18 @@
 from django.urls import path
-from django.urls.base import translate_url
+from django.views.decorators.cache import cache_page
 
 from users.views.activity_views import (
     AddFolder, AddItem, DeleteFolder, DeleteItem, ExportView,
     ListFolders, ListItem,TransactionList, UpdateFolder, UpdateItem,  
-    ViewItem, dashbord, import_items
+    ViewItem, dashbord, import_items,home
 )
-
-from ..views.user_views import home
 
 app_name = "activity"
 
 urlpatterns = [
     path('' , home, name='home'),   
     
-    path('folders/' , ListFolders.as_view(), name='folders'),
+    path('folders/' , cache_page(60)(ListFolders.as_view()), name='folders'),
     path('folders/add/' , AddFolder.as_view(), name='add-folder'),
     path('folders/<slug>/update/' , UpdateFolder.as_view(), name='update-folder'),   
     path('folders/<slug>/delete/' , DeleteFolder.as_view(), name='delete-folder'),
