@@ -25,6 +25,8 @@ def breadcrumb(context):
                 style="text-decoration: none;">{home[1]}</a>'''
 
     for _ in zip(url_string_list,url_name_list):
+        if "Accounts" in _:
+            break
         crumb = crumb + ' > ' + create_url(_) 
       
     return crumb
